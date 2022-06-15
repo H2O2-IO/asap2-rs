@@ -1,6 +1,12 @@
+use asap2_derive::{Node,add_node_field, add_namenode_field};
+
 pub mod ccp;
 pub mod xcp;
 pub mod kwp;
+
+
+
+#[derive(Copy,Clone,strum_macros::Display,Debug)]
 pub enum NodeType
 {
     Unsupported,
@@ -140,6 +146,12 @@ pub enum NodeType
     InEPResErrDAQEVSERV,
     XCPOnSxI,
     Framing
+}
+
+impl From<NodeType> for String {
+    fn from(_: NodeType) -> Self {
+        todo!()
+    }
 }
 
 pub enum AddrType
@@ -357,3 +369,57 @@ pub enum VarNamingType
     Numeric
 }
 
+/// The trait node is implemented for all a2l objects.
+/// It gives location infomation of each object in an a2l file.
+/// TODO: because Rust doesn't support data inheritance, we need a derive macro to auto generate some common field.
+pub trait Node {
+    /// get the first line in the original file.
+    fn start_line(&self)->u32;
+    /// get the last line in the original file.
+    fn end_line(&self)->u32;
+    /// get name of this node, for nodes without name, return it's node type as string.
+    fn name(&self) -> String {
+        self.node_type().to_string()
+    }
+    /// get the type of this node
+    fn node_type(&self)->NodeType;
+}
+
+/// A `NamedNode` is a a2l objects with a name in an a2l file, such as `/Project` `/Module` ...
+pub trait NamedNode:Node {
+    fn node_name(&self)->String;
+    fn get_name(&self)->String{
+        self.node_name()
+    }
+}
+
+/// An `UnsupprotedNode` is an a2l object the crate doesn't support, such as A2ML and IF_DATA
+pub trait UnsupportedNode:NamedNode {
+    fn node_type(&self)->NodeType{
+        NodeType::Unsupported
+    }
+    fn content(&self)->String;
+}
+
+#[add_node_field]
+#[add_namenode_field]
+#[derive(Node)]
+pub struct A2ML {
+    content:String,
+}
+
+impl UnsupportedNode for A2ML {
+    fn content(&self)->String {
+        self.content.clone()
+    }
+
+    fn node_type(&self)->NodeType{
+        NodeType::A2ML
+    }
+}
+
+impl NamedNode for A2ML {
+    fn node_name(&self)->String {
+        self.name.clone()
+    }
+}
