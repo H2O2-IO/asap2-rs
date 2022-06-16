@@ -1,4 +1,10 @@
-use asap2_derive::{Node,add_node_field, add_namenode_field};
+use asap2_derive::{
+    Node,
+    add_node_field,
+    add_namenode_field,
+    add_addressnode_field,
+    NamedNode,
+};
 
 pub mod ccp;
 pub mod xcp;
@@ -188,6 +194,7 @@ pub enum BitOperationType
     LeftShift
 }
 
+#[derive(Copy,Clone)]
 pub enum CalibrationAccess
 {
     NotSet,
@@ -328,7 +335,7 @@ pub enum PRGType
     Data,
     Reserved
 }
-
+#[derive(Copy,Clone)]
 pub enum ScalingUnits
 {
     Time1uSec,
@@ -369,6 +376,20 @@ pub enum VarNamingType
     Numeric
 }
 
+pub enum WriterIndent
+{
+    Space,
+    Tab
+}
+
+pub enum WriterSortMode
+{
+    None,
+    ByName,
+    ByTypeAndName,
+    ByAddressAndName
+}
+
 /// The trait node is implemented for all a2l objects.
 /// It gives location infomation of each object in an a2l file.
 /// TODO: because Rust doesn't support data inheritance, we need a derive macro to auto generate some common field.
@@ -388,22 +409,36 @@ pub trait Node {
 /// A `NamedNode` is a a2l objects with a name in an a2l file, such as `/Project` `/Module` ...
 pub trait NamedNode:Node {
     fn node_name(&self)->String;
-    fn get_name(&self)->String{
+    fn name(&self)->String{
         self.node_name()
     }
 }
 
 /// An `UnsupprotedNode` is an a2l object the crate doesn't support, such as A2ML and IF_DATA
 pub trait UnsupportedNode:NamedNode {
-    fn node_type(&self)->NodeType{
-        NodeType::Unsupported
-    }
     fn content(&self)->String;
+}
+
+// pub trait DescriptableObject {
+//     fn name(&self) -> String;
+//     fn display_name(&self) -> String;
+//     fn description(&self) -> String;
+//     fn pretty_annotation(&self) -> String;
+// }
+
+pub trait MemoryObject {
+    fn contains(address: u32) -> bool;
+    fn is_readonly() -> bool;
+    fn address() -> u32;
+    fn size() -> u32;
+    fn offsets() -> [i32];
+    fn set_offsets(offsets:[i32]);
 }
 
 #[add_node_field]
 #[add_namenode_field]
 #[derive(Node)]
+#[derive(NamedNode)]
 pub struct A2ML {
     content:String,
 }
@@ -412,14 +447,87 @@ impl UnsupportedNode for A2ML {
     fn content(&self)->String {
         self.content.clone()
     }
+}
 
-    fn node_type(&self)->NodeType{
-        NodeType::A2ML
+#[add_node_field]
+#[add_namenode_field]
+#[derive(Node)]
+#[derive(NamedNode)]
+pub struct IfData {
+    content:String,
+}
+
+impl UnsupportedNode for IfData {
+    fn content(&self)->String {
+        self.content.clone()
     }
 }
 
-impl NamedNode for A2ML {
-    fn node_name(&self)->String {
-        self.name.clone()
+pub trait AddressNode : NamedNode {
+    fn address(&self)->u32;
+    fn address_ext(&self)->i32;
+    fn calib_access(&self)->CalibrationAccess;
+    // fn instanced(&self)->bool{
+    //     return self.start_line() == 0x7FFF_FFFF;
+    // }
+    fn max_refresh_rate(&self)->i32;
+    fn max_refresh_unit(&self)->ScalingUnits;
+    fn model_link(&self)->String;
+    fn ref_instance(&self)->u32;
+    fn symbol_link(&self)->String;
+    fn symbol_offset(&self)->i32;
+
+    fn get_memory_size(&self)->u32;
+}
+
+#[add_node_field]
+#[add_namenode_field]
+#[add_addressnode_field]
+#[derive(Node)]
+#[derive(NamedNode)]
+pub struct Blob {
+    addr_type: AddrType,
+    size:u32,
+}
+
+impl AddressNode for Blob {
+    fn address(&self)->u32 {
+        self.address
+    }
+
+    fn address_ext(&self)->i32 {
+        self.address_ext
+    }
+
+    fn calib_access(&self)->CalibrationAccess {
+        self.calib_access
+    }
+
+    fn max_refresh_rate(&self)->i32 {
+        self.max_refresh_rate
+    }
+
+    fn max_refresh_unit(&self)->ScalingUnits {
+        self.max_refresh_unit
+    }
+
+    fn model_link(&self)->String {
+        self.model_link.clone()
+    }
+
+    fn ref_instance(&self)->u32 {
+        0
+    }
+
+    fn symbol_link(&self)->String {
+        self.symbol_link.clone()
+    }
+
+    fn symbol_offset(&self)->i32 {
+        self.symbol_offset
+    }
+
+    fn get_memory_size(&self)->u32 {
+        self.size
     }
 }
