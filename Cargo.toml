@@ -14,3 +14,4 @@ strum = "0.24.1"
 strum_macros = "0.24.1"
 asap2_derive = {path = "./asap2_derive"}
 deno_core = { version = "0.139.0", optional = true }
+indextree = "4.4.0"
