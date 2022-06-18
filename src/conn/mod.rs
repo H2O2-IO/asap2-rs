@@ -1,24 +1,20 @@
 pub mod ccp;
 pub mod xcp;
 
-pub enum ConnectBehaviourType
-{
+pub enum ConnectBehaviourType {
     Automatic,
-    Manual
+    Manual,
 }
 
-pub enum EPKCheckResult
-{
+pub enum EPKCheckResult {
     Equal,
     NotEqual,
     Failed,
-    NotApplicable
+    NotApplicable,
 }
 
-pub enum StartStopMode
-{
+pub enum StartStopMode {
     Stop,
     Start,
-    Select
+    Select,
 }
-

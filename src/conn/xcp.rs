@@ -2,31 +2,27 @@
 
 use bitflags::bitflags;
 
-pub enum BasicAddressModeType
-{
+pub enum BasicAddressModeType {
     Address,
-    Length
+    Length,
 }
 
-pub enum CalPageMode
-{
+pub enum CalPageMode {
     ECU = 1,
     XCP = 2,
-    ALL = 128
+    ALL = 128,
 }
 
-pub enum ClockInfo
-{
+pub enum ClockInfo {
     None,
     SlvClkInfo,
     GrandmClkInfo,
     ClkRelation = 4,
     ECUClkInfo = 8,
-    ECUGrandmClkInfo = 16
+    ECUGrandmClkInfo = 16,
 }
 
-pub enum CmdResult
-{
+pub enum CmdResult {
     /// Command processor synchronization
     ErrCmdSynch,
     /// Command was not executed
@@ -76,11 +72,10 @@ pub enum CmdResult
     /// Protocol failure (unexpected response length)
     ErrProtocolFailure,
     /// Successful
-    Ok
+    Ok,
 }
 
-pub enum CommandCode
-{
+pub enum CommandCode {
     Connect = 255,
     Disconnect = 254,
     GetStatus = 253,
@@ -139,40 +134,35 @@ pub enum CommandCode
     ProgramNext = 202,
     ProgramMax = 201,
     ProgramVerify = 200,
-    TimeCorrelationProperties = 198
+    TimeCorrelationProperties = 198,
 }
 
-pub enum CommModeOptional
-{
-    None = 0,
-    MasterBlockMode = 1,
-    InterleavedMode = 2
-}
-
-pub enum CommModeProgram
-{
+pub enum CommModeOptional {
     None = 0,
     MasterBlockMode = 1,
     InterleavedMode = 2,
-    SlaveBlockMode = 64
 }
 
-pub enum ConnectMode
-{
+pub enum CommModeProgram {
+    None = 0,
+    MasterBlockMode = 1,
+    InterleavedMode = 2,
+    SlaveBlockMode = 64,
+}
+
+pub enum ConnectMode {
     Normal,
-    UserDefined
+    UserDefined,
 }
 
-pub enum DAQEventProperties
-{
+pub enum DAQEventProperties {
     DAQ = 4,
     STIM = 8,
     ConsistencyDAQ = 64,
-    ConsistencyEvent = 128
+    ConsistencyEvent = 128,
 }
 
-pub enum DAQKeyByte
-{
+pub enum DAQKeyByte {
     OptimisationType0 = 1,
     OptimisationType1 = 2,
     OptimisationType01 = 3,
@@ -184,7 +174,7 @@ pub enum DAQKeyByte
     AdrExtensionODTDAQ = 48,
     IDFieldType0 = 64,
     IDFieldType1 = 128,
-    IDFieldType11 = 192
+    IDFieldType11 = 192,
 }
 
 // pub enum DAQListMode
@@ -214,16 +204,14 @@ bitflags! {
     }
 }
 
-pub enum DAQListProperties
-{
+pub enum DAQListProperties {
     Predefined = 1,
     EventFixed = 2,
     DAQ = 4,
-    STIM = 8
+    STIM = 8,
 }
 
-pub enum DAQProperties
-{
+pub enum DAQProperties {
     Dynamic = 1,
     PrescalerSupported = 2,
     ResumeSupported = 4,
@@ -231,11 +219,10 @@ pub enum DAQProperties
     TimestampSupported = 16,
     PIDOffSupported = 32,
     OverloadMSB = 64,
-    OverloadEvent = 128
+    OverloadEvent = 128,
 }
 
-pub enum DAQTimestampMode
-{
+pub enum DAQTimestampMode {
     Size0 = 1,
     Size1 = 2,
     Size2 = 4,
@@ -243,26 +230,23 @@ pub enum DAQTimestampMode
     Uint0 = 16,
     Uint1 = 32,
     Uint2 = 64,
-    Uint3 = 128
+    Uint3 = 128,
 }
 
-pub enum DTOCtrMode
-{
+pub enum DTOCtrMode {
     None,
     DAQ,
-    STIM
+    STIM,
 }
 
-pub enum DTOCtrModifier
-{
+pub enum DTOCtrModifier {
     None,
     STIM,
     DAQ,
-    RelatedEvent = 4
+    RelatedEvent = 4,
 }
 
-pub enum DTOCtrProperties
-{
+pub enum DTOCtrProperties {
     RelatedEventFixed = 1,
     DAQModeFixed,
     STIMModeFixed = 4,
@@ -270,14 +254,13 @@ pub enum DTOCtrProperties
     DAQModePresent = 16,
     STIMModePresent = 32,
     STIMCtrCpyPresent = 64,
-    EctCtrPresent = 128
+    EctCtrPresent = 128,
 }
 
-pub enum EventCodes
-{
+pub enum EventCodes {
     /// Slave starting in RESUME mode
     ResumeMode,
-    /// The DAQ configuration in non-volatile memory has been cleared. 
+    /// The DAQ configuration in non-volatile memory has been cleared.
     ClearDAQ,
     /// The DAQ configuration has been stored into non-volatile memory.
     StoreDAQ,
@@ -302,61 +285,53 @@ pub enum EventCodes
     /// User-defined event
     User,
     /// Transport layer specific event
-    Transport
+    Transport,
 }
 
-pub enum GetIDRespType
-{
+pub enum GetIDRespType {
     TransferMode = 1,
-    CompressedEncrypted = 2
+    CompressedEncrypted = 2,
 }
 
-pub enum GetIDType
-{
+pub enum GetIDType {
     ASCII,
     ASAP2FileNameWithoutExt,
     ASAP2FileName,
     ASAP2URL,
-    ASAP2File2Upload
+    ASAP2File2Upload,
 }
 
-pub enum GetSectorInfoMode
-{
+pub enum GetSectorInfoMode {
     StartAddress,
     Length,
-    NameLength
+    NameLength,
 }
 
-pub enum GetSegmentModeType
-{
+pub enum GetSegmentModeType {
     Address,
     Standard,
-    Mapping
+    Mapping,
 }
 
-pub enum GetSlaveIDMode
-{
+pub enum GetSlaveIDMode {
     IdentifyByEcho,
-    ConfirmByInverseEcho
+    ConfirmByInverseEcho,
 }
 
-pub enum GranODTEntrySize
-{
+pub enum ODTEntrySize {
     Byte = 1,
     Word,
     DWord = 4,
-    QWord = 8
+    QWord = 8,
 }
 
-pub enum MappingInfoModeType
-{
+pub enum MappingInfoModeType {
     SourceAddress,
     DestinationAddress,
-    LengthAddress
+    LengthAddress,
 }
 
-pub enum ObservableClocks
-{
+pub enum ObservableClocks {
     None,
     XCPSlvClkAvail,
     XCPSlvClkNotAvail,
@@ -364,21 +339,19 @@ pub enum ObservableClocks
     GrandmClkNotAvail = 8,
     ECUClkCanReadRandom = 16,
     ECUClkCanNotReadRandom = 32,
-    ECUClkCanNotRead = 48
+    ECUClkCanNotRead = 48,
 }
 
-pub enum PageProperties
-{
+pub enum PageProperties {
     ECUAccessWithoutXCP = 1,
     ECUAccessWithXCP = 2,
     XCPReadAccessWithoutECU = 4,
     XCPReadAccessWithECU = 8,
     XCPWriteAccessWithoutECU = 16,
-    XCPWriteAccessWithECU = 32
+    XCPWriteAccessWithECU = 32,
 }
 
-pub enum PayloadFmt
-{
+pub enum PayloadFmt {
     None,
     XCPSlvDWord,
     XCPSlvDLong,
@@ -386,27 +359,24 @@ pub enum PayloadFmt
     GrandmDLong = 8,
     ECUDWord = 16,
     ECUDLong = 32,
-    ClusterIdentifier = 64
+    ClusterIdentifier = 64,
 }
 
-pub enum PIDSlaveMaster
-{
+pub enum PIDSlaveMaster {
     SERV = 252,
     EV,
     ERR,
-    RES
+    RES,
 }
 
-pub enum ProgramClearMode
-{
+pub enum ProgramClearMode {
     /// Absolute
     AbsoluteAccess,
     /// Functional
-    FunctionalAccess
+    FunctionalAccess,
 }
 
-pub enum ProgramProperties
-{
+pub enum ProgramProperties {
     None = 0,
     AbsoluteMode = 1,
     FunctionalMode = 2,
@@ -415,125 +385,110 @@ pub enum ProgramProperties
     EncryptionSupported = 16,
     EncryptionRequired = 32,
     NonSeqProgramSupported = 64,
-    NonSeqProgramRequired = 128
+    NonSeqProgramRequired = 128,
 }
 
-pub enum ProgramVerifyMode
-{
+pub enum ProgramVerifyMode {
     /// Request to start internal Routine
     RequestToStartInternalRoutine,
     /// Sending verification Value
     SendingVerificationValue,
-    None
+    None,
 }
 
-pub enum ResourceType
-{
+pub enum ResourceType {
     None = 0,
     CALPAG = 1,
     DAQ = 4,
     STIM = 8,
-    PGM = 16
+    PGM = 16,
 }
 
-pub enum SeedModeType
-{
+pub enum SeedModeType {
     FirstPart,
-    RemainingPart
+    RemainingPart,
 }
 
-pub enum SegmentInfoMode
-{
+pub enum SegmentInfoMode {
     GetBasicAddress,
     GetStandardInfo,
-    GetAddressMapping
+    GetAddressMapping,
 }
 
-pub enum SegmentMode
-{
+pub enum SegmentMode {
     None = 0,
-    Freeze = 1
+    Freeze = 1,
 }
 
-pub enum ServiceRequestCode
-{
+pub enum ServiceRequestCode {
     /// Slave requesting to be reset
     Reset,
     /// Slave transferring a byte stream of plain ASCII text.
-    Text
+    Text,
 }
 
-pub enum SessionState
-{
+pub enum SessionState {
     None = 0,
     StoreCALRequest = 1,
     StoreDAQRequest = 4,
     ClearDAQRequest = 8,
     DAQRunning = 64,
-    Resume = 128
+    Resume = 128,
 }
 
-pub enum SetRequestMode
-{
+pub enum SetRequestMode {
     StoreCALRequest = 1,
     StoreDAQRequestNoResume = 2,
     StoreDAQRequestResume = 4,
-    ClearDAQRequest = 8
+    ClearDAQRequest = 8,
 }
 
-pub enum SlaveConfig
-{
+pub enum SlaveConfig {
     None,
     ResponseFmtSendOnInitTrigger,
     ResponseFmtSendOnAllTrigger,
     DAQTsRelation = 4,
     TimeSyncBridgeDisabled = 8,
-    TimeSyncBridgeEnabled = 16
+    TimeSyncBridgeEnabled = 16,
 }
 
-pub enum STIMTimeoutMode
-{
+pub enum STIMTimeoutMode {
     EventChannelNo,
-    DAQListNo
+    DAQListNo,
 }
 
-pub enum SyncState
-{
+pub enum SyncState {
     None,
     SlvClkIsSyncronized,
     SlvClkIsSyntonized = 3,
     SlvClkIsNotSupported,
     GrandmClk = 8,
     ECUClk = 16,
-    ECUClkUnknown = 32
+    ECUClkUnknown = 32,
 }
 
-pub enum TimeCorrGetPropsReq
-{
+pub enum TimeCorrGetPropsReq {
     None,
-    GetClkInfo
+    GetClkInfo,
 }
 
-pub enum TimeCorrSetProps
-{
+pub enum TimeCorrSetProps {
     None,
     ResponseFmtSendOnInitTrigger,
     ResponseFmtSendOnAllTrigger,
     TimeSyncBridgeEnable = 4,
     TimeSyncBridgeDisable = 8,
-    SetClusterId = 16
+    SetClusterId = 16,
 }
 
-pub enum TimeOfTSSampling
-{
+pub enum TimeOfTSSampling {
     DuringCmdProcessing,
     LowJitter,
     PhysicalTransmission,
-    PhysicalReception
+    PhysicalReception,
 }
 
-pub enum TriggerInitiator
-{
+pub enum TriggerInitiator {
     HWTrigger,
     EventDerived,
     MultiCast,
@@ -541,30 +496,27 @@ pub enum TriggerInitiator
     StateChangeInSynSync,
     LeapSecondOccured,
     ReleaseECUReset,
-    Reserved
+    Reserved,
 }
 
-pub enum USBEndpointType
-{
+pub enum USBEndpointType {
     Configurable,
-    Fixxed
+    Fixxed,
 }
 
-pub enum XCPonCAN
-{
+pub enum XCPonCAN {
     GetSlaveID = 255,
     GetDAQID = 254,
     SetDAQID = 253,
-    GetDAQClockMulticast = 250
+    GetDAQClockMulticast = 250,
 }
 
-pub enum XCPType
-{
+pub enum XCPType {
     Unknown,
     UDP,
     TCP,
     CAN,
     USB,
     FlexRay,
-    SxI
+    SxI,
 }

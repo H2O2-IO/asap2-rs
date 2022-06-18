@@ -1,5 +1,4 @@
-pub enum CmdResult
-{
+pub enum CmdResult {
     /// Successful
     Ok,
     /// DAQ processor overload
@@ -41,11 +40,10 @@ pub enum CmdResult
     /// Unspecified failure
     Generic,
     /// Timeout
-    Timeout
+    Timeout,
 }
 
-pub enum CommandCode
-{
+pub enum CommandCode {
     Connect = 1,
     GetCCPVersion = 27,
     ExchangeID = 23,
@@ -73,36 +71,31 @@ pub enum CommandCode
     GetActiveCALPage = 9,
     StartStopAll = 8,
     DiagService = 32,
-    ActionService
+    ActionService,
 }
 
-pub enum DisconnectMode
-{
+pub enum DisconnectMode {
     Temporary,
-    EndOfSession
+    EndOfSession,
 }
 
-pub enum PIDSlaveMaster
-{
+pub enum PIDSlaveMaster {
     RES = 255,
-    EV = 254
+    EV = 254,
 }
 
-pub enum ResourceType
-{
+pub enum ResourceType {
     None = 0,
     CAL = 1,
     DAQ = 2,
-    PGM = 64
+    PGM = 64,
 }
 
-pub enum SessionState
-{
+pub enum SessionState {
     None = 0,
     CAL = 1,
     DAQ = 2,
     Resume = 4,
     Store = 64,
-    Run = 128
+    Run = 128,
 }
-

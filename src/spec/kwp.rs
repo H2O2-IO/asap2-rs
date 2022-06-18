@@ -1,67 +1,57 @@
-pub enum AddressLocation
-{
+pub enum AddressLocation {
     Intern,
-    Extern
+    Extern,
 }
 
-pub enum KWPCopyMode
-{
+pub enum KWPCopyMode {
     RAMInitByECU,
-    RAMInitByTool
+    RAMInitByTool,
 }
 
-pub enum KWPDataAccessFlags
-{
+pub enum KWPDataAccessFlags {
     ReadData = 1,
     VerifyCode = 2,
     ReadCode = 4,
-    RWOnlyOnActivePage = 8
+    RWOnlyOnActivePage = 8,
 }
 
-pub enum KWPFlashMode
-{
+pub enum KWPFlashMode {
     NoFlashBack,
     AutoFlashBack,
-    ToolFlashBack
+    ToolFlashBack,
 }
 
-pub enum KWPFlashResult
-{
+pub enum KWPFlashResult {
     RequestRoutineResults,
     StartRoutine,
-    CodedResult
+    CodedResult,
 }
 
-pub enum KWPMeasurementMode
-{
+pub enum KWPMeasurementMode {
     AddressMode,
-    BlockMode
+    BlockMode,
 }
 
-pub enum KWPPageSwitchMode
-{
+pub enum KWPPageSwitchMode {
     EscapeCode,
-    LocalRoutine
+    LocalRoutine,
 }
 
-pub enum KWPPhysicalLayer
-{
+pub enum KWPPhysicalLayer {
     NotSet,
     KLine,
     CAN,
     KLineOnCAN,
-    KLineAndCAN
+    KLineAndCAN,
 }
 
-pub enum KWPStimulationMode
-{
+pub enum KWPStimulationMode {
     NotSet,
     _WuP,
-    _5Baud
+    _5Baud,
 }
 
-pub enum KWPVersion
-{
+pub enum KWPVersion {
     NotSet,
     VDA1996,
 }
